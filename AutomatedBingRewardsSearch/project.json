@@ -3,6 +3,7 @@
   "description": "Automatically conducts searches on Bing to earn Bing Rewards points.",
   "main": "Main.xaml",
   "dependencies": {
+    "Password_Generator.Activities": "[5.0.0]",
     "UiPath.Excel.Activities": "[2.7.1-ce]",
     "UiPath.Mail.Activities": "[1.7.1-ce]",
     "UiPath.System.Activities": "[19.10.0-ce]",

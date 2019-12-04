@@ -1,11 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Create_E_mail_Accounts" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Create_E_mail_Accounts" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="clr-namespace:Password_Generator;assembly=Password_Generator" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="emailName" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>220,143</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>572,1510</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Create E-mail Accounts_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -50,13 +50,149 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Create E-mail Accounts" sap:VirtualizedContainerService.HintSize="200,83" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Create E-mail Accounts" sap:VirtualizedContainerService.HintSize="552,1410" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="vba" Name="returnStatement" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
+    <ui:OpenBrowser BrowserType="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="510,1318" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://signup.live.com/?wa=wsignin1.0&amp;rpsnv=13&amp;ct=1575497404&amp;rver=7.0.6738.0&amp;wp=MBI_SSL&amp;wreply=https%3a%2f%2faccount.microsoft.com%2fauth%2fcomplete-signin%3fru%3dhttps%253A%252F%252Faccount.microsoft.com%252F%253Flang%253Den-US%2526refd%253Daccount.live.com%2526refp%253Dlanding&amp;id=292666&amp;lw=1&amp;fl=easi2&amp;contextid=AB24F4D5ABA62606&amp;bk=1575497424&amp;uiflavor=web&amp;mkt=EN-US&amp;lc=1033&amp;uaid=7072e22741604d9bb3636c520e2549fa&amp;lic=1">
+      <ui:OpenBrowser.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="476,1219" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="isValid" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <p:Password_Builder DisplayName="Password Builder" sap:VirtualizedContainerService.HintSize="434,22" sap2010:WorkflowViewState.IdRef="Password_Builder_1" Result="[returnStatement]" />
+            <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[returnStatement]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[returnStatement+ "@outlook.com"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:TypeInto Activate="True" ClickBeforeTyping="{x:Null}" ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" DisplayName="Type Into 'INPUT  MemberName'" EmptyField="{x:Null}" sap:VirtualizedContainerService.HintSize="434,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Text="[returnStatement]">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="759149dd84d4b9ffbe5028d46620fcad" Selector="&lt;webctrl id='MemberName' tag='INPUT' /&gt;">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:ClickImage ClickType="CLICK_SINGLE" ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" DisplayName="Click Image 'iexplore.exe Create'" sap:VirtualizedContainerService.HintSize="434,106" sap2010:WorkflowViewState.IdRef="ClickImage_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="{x:Null}">
+              <ui:ClickImage.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:ClickImage.CursorPosition>
+              <ui:ClickImage.Image>
+                <ui:ImageTarget Image="{x:Null}" Accuracy="0.8" Profile="Basic" TargetImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGsAAAAbCAYAAAB7nXHNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFdSURBVGhD7ZexSkNREETzY36PnT9i6VdY2qWzFEsrwSJgGRBstLGJnMDAeplUsRhlBg4vb/beBHayl/c2m8vtofwRrFkysWbJxJolE2uWTKxZMrFmycSaJRNrlkysWTKxZhDo7ePL1l72n4e7p72t/UusGYTkQvnNsNDV7bOtxWDNIBCBoIvrxx+1hhWGmviwez+GM2suLI5MSesJGc21N/evR0/XqfVPEYM1g0CEpYbTXNXWsAhq3lMnZD7zHUg1NCdpvY/EmkHMJhIEUm2GRYiaJLEGpPWgEAVqWGeyNpHpUaNnWArSSXs1nUieQA3rTNYmalpo/BrWOi0O5F4FUMM6E9dEPWzMsDgGT72PCfYpVO0T7nfisGYQp5oozaajOV1MnwtTxyFXraU2H14isWYQyIVFY5GbkCkCYT+aYbAPrfdohhiFNUsm1iyZWLNkYs2SiTVLJtYsgWwP38HQwKVxa14gAAAAAElFTkSuQmCC" />
+              </ui:ClickImage.Image>
+              <ui:ClickImage.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:ClickImage.Target>
+            </ui:ClickImage>
+            <ui:OnImageAppear ContinueOnError="{x:Null}" DisplayName="On Image Appear 'iexplore.exe Create'" FoundElement="{x:Null}" sap:VirtualizedContainerService.HintSize="434,325" sap2010:WorkflowViewState.IdRef="OnImageAppear_1" RepeatForever="True">
+              <ui:OnImageAppear.Body>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,179" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Create E-mail Accounts workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" Timeout="{x:Null}" UnSafe="False" WorkflowFileName="Create E-mail Accounts.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </Sequence>
+              </ui:OnImageAppear.Body>
+              <ui:OnImageAppear.Image>
+                <ui:ImageTarget Image="{x:Null}" Accuracy="0.8" Profile="Basic" TargetImageBase64="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" />
+              </ui:OnImageAppear.Image>
+              <ui:OnImageAppear.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:OnImageAppear.Target>
+            </ui:OnImageAppear>
+            <ui:TypeInto Activate="True" ClickBeforeTyping="{x:Null}" ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" DisplayName="Type Into 'INPUT  PasswordInput'" EmptyField="{x:Null}" sap:VirtualizedContainerService.HintSize="434,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Text="AranP123">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="d23bfac739c0ddff051003721a71c09d" Selector="&lt;webctrl id='PasswordInput' tag='INPUT' /&gt;">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:ClickImage ClickType="CLICK_SINGLE" ContinueOnError="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" DisplayName="Click Image 'iexplore.exe Create'" sap:VirtualizedContainerService.HintSize="434,106" sap2010:WorkflowViewState.IdRef="ClickImage_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="{x:Null}">
+              <ui:ClickImage.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:ClickImage.CursorPosition>
+              <ui:ClickImage.Image>
+                <ui:ImageTarget Image="{x:Null}" Accuracy="0.8" Profile="Basic" TargetImageBase64="iVBORw0KGgoAAAANSUhEUgAAAGcAAAAdCAYAAAC3+HJeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFmSURBVGhD7ZexSkNREETzY36PnT9i6VdY2qWzFEsrwUKwDAg22thETmBgvUyKgJBBZuDw8mbvTWAn+7hvs7nc7kso1iwZWLNkYM2SgTVLBtYsGVizZGDNkoE1SwbWLBlYs2RgzRDQ++e3rb3svvZ3Tztb+zdYMwTJhfCX4aCr22dbOyvWDAERALq4fvxVazhnRk17eP04hDFrLhwegZLWEyqaa2/u3w6erlPrn+CsWDMERDhqMM1UbQ2HYOY9dULlM9+BVENzUtb7GKwZwmwajUeqzXAITZMi1kC0HhSaQA3nRNamMR1q7AxHwTlpr6YPyROo4ZzI2jRNA41ew1mnwYHc0Rw1nBNxTdPhYIbDY+3Y+5Bgn0LUPuF+JwJrhnCsadJsMprTw3S58PR446q11OZhIwZrhoBcODQSuQmYIgD2o9l89qH1Hs3Qzo41SwbWLBlYs2RgzZKBNUsG1iwZWLMEsN3/AGM6kDA3bSi3AAAAAElFTkSuQmCC" />
+              </ui:ClickImage.Image>
+              <ui:ClickImage.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                  <ui:Target.WaitForReady>
+                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                  </ui:Target.WaitForReady>
+                </ui:Target>
+              </ui:ClickImage.Target>
+            </ui:ClickImage>
+          </Sequence>
+        </ActivityAction>
+      </ui:OpenBrowser.Body>
+    </ui:OpenBrowser>
   </Sequence>
 </Activity>
